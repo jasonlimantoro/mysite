@@ -1,7 +1,11 @@
 {% if questions %}
   <ul>
     {% for q in questions %}
-      <li><a href="{% url 'show' q.id %}">{{ q.question_text }}</a></li>
+      <li>
+        <a href="{% url 'polls:show' q.id %}">{{ q.question_text }}</a>
+        <a href="{% url 'polls:edit' q.id %}">Edit</a>
+      </li>
+
     {% endfor %}
   </ul>
 {% else %}

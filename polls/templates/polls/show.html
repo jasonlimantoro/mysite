@@ -1,6 +1,7 @@
-{% if question %}
-  <ul>
-    <li>id : {{ question.id }}</li>
-    <li>text: {{ question.question_text }}</li>
-  </ul>
-{% endif %}
+<h1>{{ question.question_text }}</h1>
+Choices: 
+<ul>
+{% for choice in question.choice_set.all %}
+  <li>{{ choice.choice_text }}</li>
+{% endfor %}
+</ul>
