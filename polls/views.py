@@ -20,10 +20,6 @@ class ShowView(generic.DetailView):
     model = Question
     template_name = 'polls/show.html'
 
-class ResultView(generic.DetailView):
-    model = Question
-    template_name = 'polls/result.html'
-
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     try:
@@ -40,4 +36,4 @@ def vote(request, question_id):
         # Always return an HttpResponseRedirect after successfully dealing
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
-        return HttpResponseRedirect(reverse('polls:result', args=(question.id,)))
+        return HttpResponseRedirect(reverse('polls:show', args=(question.id,)))
