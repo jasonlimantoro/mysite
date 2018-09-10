@@ -1,10 +1,13 @@
 import datetime
 
+from faker import Faker
 from django.test import TestCase
 from django.utils import timezone
+from django.contrib.auth.models import User
 
-from .models import Question
+from .models import Question, Blog, Like
 
+faker = Faker()
 
 class QuestionModelTests(TestCase):
 
@@ -17,3 +20,10 @@ class QuestionModelTests(TestCase):
         future_question = Question(pub_date=time)
         self.assertIs(future_question.was_published_recently(), False)
         
+class UserLikesBlogTests(TestCase):
+    def test_blog_should_have_one_like(self):
+        user = User.objects.create_user(username=faker.first_name_female(), email=faker.free_email(), password=faker.word())
+        blog = Blog.objects.create(title=faker.sentence(), description=faker.paragraph(), user=user)
+        Like.objects.create(user=user, blog=blog)
+        self.assertEqual(user.like_set.count(), 1)
+        self.assertEqual(blog.like_set.count(), 1)
