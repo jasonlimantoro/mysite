@@ -40,6 +40,4 @@ admin.site.register(Category)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(Like, LikeAdmin)
 
-admin.site.site_header = "My coolest blog"
-admin.site.index_title = "Models"
 
