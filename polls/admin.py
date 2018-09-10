@@ -6,6 +6,13 @@ from .models import Question, Choice, Blog, Category, Comment, Like
 admin.site.unregister(Group)
 
 class BlogAdmin(admin.ModelAdmin):
+    fieldsets = [
+        ('Content', {'fields': ['title', 'description']}),
+        ('Category', {'fields': ['category']})
+    ]
+    list_display = ('title', 'description', 'categorized_to', 'pub_date')
+    search_fields = ['title', 'description']
+
     def save_model(self, request, obj, form, change):
         obj.user = request.user
         super().save_model(request, obj, form, change)
@@ -14,11 +21,16 @@ class CommentAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.user = request.user
         super().save_model(request, obj, form, change)
+    
+    list_display = ('content', 'blog_id', 'pub_date')
+    search_fields = ['content']
 
 class LikeAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.user = request.user
         super().save_model(request, obj, form, change)
+    
+    list_display = ('user_id', 'blog_id')
 
 # Register your models here.
 # admin.site.register(Question)

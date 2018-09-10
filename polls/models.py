@@ -28,7 +28,7 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = 'Categories'
 
-    title = models.TextField(max_length=200)
+    title = models.CharField(max_length=30)
     description = models.TextField(max_length=200)
     pub_date = models.DateTimeField('date published', default=timezone.now)
 
@@ -36,7 +36,7 @@ class Category(models.Model):
         return self.title
     
 class Blog(models.Model):
-    title = models.TextField(max_length=200)
+    title = models.CharField(max_length=30)
     description = models.TextField(max_length=200)
     user = models.ForeignKey(User, on_delete=models.CASCADE, editable=False, related_name='blogs')
     likes = models.ManyToManyField(User, through='Like', through_fields=('blog', 'user'), related_name='blog')
@@ -45,6 +45,9 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def categorized_to(self):
+        return self.category.title
 
 class Comment(models.Model):
 
