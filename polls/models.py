@@ -38,9 +38,15 @@ class Category(models.Model):
 class Blog(models.Model):
     title = models.TextField(max_length=200)
     description = models.TextField(max_length=200)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, editable=False)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, editable=False, related_name='blogs')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, related_name='blogs')
     pub_date = models.DateTimeField('date published', default=timezone.now)
 
     def __str__(self):
         return self.title
+
+class Comment(models.Model):
+    content = models.TextField(max_length=200)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, editable=False, related_name='comments')
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='comments')
+    pub_date = models.DateTimeField('date published', default=timezone.now)
