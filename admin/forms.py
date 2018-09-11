@@ -7,4 +7,7 @@ class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
         fields = ['title', 'description', 'category']
+        widgets = {
+            'category': Select(attrs={'class': 'ui search dropdown'})
+        }
 

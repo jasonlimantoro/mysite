@@ -19,15 +19,14 @@
 
   <div class="ten wide column">
     {% if messages %}
-      <div class="ui success message">
-        <div class="header">Success!!</div>
-        <ul>
-          {% for message in messages %}
-            <li>{{ message }}</li>
-          {% endfor %}
-        </ul>
-
-      </div>
+      {% for message in messages %}
+        <div class="ui message {{ message.tags }}">
+          <div class="header">
+            {% if message.tags == 'success' %} Success!!! {% else %} Error!!! {% endif %}
+          </div>
+          <p>{{ message }}</p>
+        </div>
+      {% endfor %}
     {% endif %}
     {% block content %} {% endblock content %}
   </div>
