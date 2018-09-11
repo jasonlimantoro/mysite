@@ -1,0 +1,33 @@
+{% extends 'admin/master.html' %}
+
+{% block content %}
+  <h1>Edit A blog</h1>
+  <form class="ui form" action="{% url 'admin:blogs.update' blog.id %}" method="POST">
+    {% csrf_token %}
+    <div class="field">
+      <label for="title">Title</label>
+      <input name="title" type="text" id="title" value="{{ blog.title }}">
+    </div>
+    <div class="field">
+      <label for="description">Description</label>
+      <textarea name="description" id="description" cols="30" rows="10">{{ blog.description }}</textarea>
+    </div>
+
+    <div class="field">
+      <label for="category">Category</label>
+      <select name="category" id="category" class="ui search dropdown">
+        {% for category in categories %}
+          <option value="{{ category.id }}" {% if blog.category == category %} selected {% endif %}>{{ category.title }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <button class="ui button" type="submit">Submit</button>
+  </form>
+{% endblock %}
+
+{% block script %}
+  <script>
+    $('.ui.dropdown').dropdown();
+  </script>
+{% endblock %}

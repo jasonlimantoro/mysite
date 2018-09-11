@@ -1,0 +1,29 @@
+{% extends 'admin/master.html' %}
+
+{% block content %}
+  <h1>Blogs</h1>
+    <table class="ui celled table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Published at</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for blog in blogs %}
+        <tr>
+          <td><a href="{% url 'admin:blogs.edit' blog.id %}">{{ blog.title }}</a></td>
+          <td>{{ blog.description }}</td>
+          <td>{{ blog.pub_date }}</td>
+          <td>
+            Edit <br>
+            Delete <br>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'semanticuiforms',
     'admin.apps.AdminConfig',
     'polls.apps.PollsConfig',
     # 'django.contrib.admin',

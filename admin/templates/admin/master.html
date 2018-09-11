@@ -18,11 +18,23 @@
   </div>
 
   <div class="ten wide column">
+    {% if messages %}
+      <div class="ui success message">
+        <div class="header">Success!!</div>
+        <ul>
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+
+      </div>
+    {% endif %}
     {% block content %} {% endblock content %}
   </div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.js"></script>
+{% block script %} {% endblock %}
 </body>
 </html>
