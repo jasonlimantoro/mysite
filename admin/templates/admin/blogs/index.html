@@ -15,6 +15,7 @@
       <tr>
         <th>Title</th>
         <th>Description</th>
+        <th>Comment count(s)</th>
         <th>Published at</th>
         <th>Actions</th>
       </tr>
@@ -24,13 +25,14 @@
         <tr>
           <td><a href="{% url 'admin:blogs.edit' blog.id %}">{{ blog.title }}</a></td>
           <td>{{ blog.description }}</td>
+          <td>{{ blog.comments.count }}</td>
           <td>{{ blog.pub_date }}</td>
           <td>
             <a href="{% url 'admin:blogs.edit' blog.id %}">Edit</a><br>
             <a href="{% url 'admin:blogs.show' blog.id %}">Show</a><br>
-            <form action="{% url 'admin:blogs.destroy' blog.id %}" method="POST" id="form_delete">
+            <form action="{% url 'admin:blogs.destroy' blog.id %}" method="POST" id="form-delete-{{ blog.id }}">
               {% csrf_token %}
-              <a href="#" class="to_delete">Delete</a>
+              <a href="#" data-entity-id="{{ blog.id }}" data-action="delete">Delete</a>
             </form>
           </td>
         </tr>

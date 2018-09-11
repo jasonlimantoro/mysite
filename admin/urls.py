@@ -7,6 +7,10 @@ urlpatterns = [
     path('', views.index, name='index'),
     # categories
     path('categories', category_view.index, name='categories.index'),
+    path('categories/create', category_view.create, name='categories.create'),
+    path('categories/store', category_view.store, name='categories.store'),
+    path('categories/<int:category_id>', category_view.update, name='categories.update'),
+    path('categories/<int:category_id>/delete', category_view.destroy, name='categories.destroy'),
     path('categories/<int:category_id>/show', category_view.show, name='categories.show'),
     path('categories/<int:category_id>/edit', category_view.edit, name='categories.edit'),
 

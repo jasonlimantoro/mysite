@@ -1,12 +1,21 @@
 {% extends 'admin/master.html' %}
 
 {% block content %}
-  <h1>Categories</h1>
+  <div style="display: flex;justify-content: space-between">
+    <h1>Categories</h1>
+    <button class="button ui primary small">
+      <a href="{% url 'admin:categories.create' %}" style="color: white;">
+        <i class="plus square icon outline"></i>
+        Create New
+      </a>
+    </button>
+  </div>
   <table class="ui celled fixed table">
     <thead>
       <tr>
         <th>Title</th>
         <th>Description</th>
+        <th>Post count(s)</th>
         <th>Published at</th>
         <th>Actions</th>
       </tr>
@@ -16,10 +25,15 @@
         <tr>
           <td><a href="{% url 'admin:categories.show' category.id %}">{{ category.title }}</a></td>
           <td>{{ category.description }}</td>
+          <td>{{ category.blogs.count }}</td>
           <td>{{ category.pub_date }}</td>
           <td>
-            Edit <br>
-            Delete <br>
+            <a href="{% url 'admin:categories.edit' category.id %}">Edit</a><br>
+            <a href="#" data-entity-id="{{ category.id }}" data-action="delete">Delete</a><br>
+            <form action="{% url 'admin:categories.destroy' category.id %}" method="POST"
+              id="form-delete-{{ category.id }}">
+              {% csrf_token %}
+            </form>
           </td>
         </tr>
       {% endfor %}

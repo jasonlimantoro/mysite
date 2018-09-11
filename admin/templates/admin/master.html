@@ -45,11 +45,12 @@
     ;
   })
 ;
-  $('.to_delete').click(function (e) {
+  $('a[data-action="delete"]').click(function (e) {
     e.preventDefault();
+    let id = $(this).data('entityId');
     let alert = confirm("Are you sure you want to delete this?");
     if(alert){
-      $('#form_delete').submit();
+      $('#form-delete-' + id).submit();
     }
     return false;
   });

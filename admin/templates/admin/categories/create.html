@@ -1,8 +1,8 @@
 {% extends 'admin/master.html' %}
 
 {% block content %}
-  <h1>Edit Category</h1>
-  <form action="{% url 'admin:categories.update' category.id %}" method="POST" class="ui form">
+  <h1>Create a new category</h1>
+  <form action="{% url 'admin:categories.store' %}" method="POST" class="ui form">
     {% csrf_token %}
     {% for field in form.visible_fields %}
       <div class="field">
@@ -11,6 +11,6 @@
         {{ field }}
       </div>
     {% endfor %}
-    <button class="button ui primary" type="submit">Submit</button>
+    <button class="ui button primary" type="submit">Submit</button>
   </form>
 {% endblock %}

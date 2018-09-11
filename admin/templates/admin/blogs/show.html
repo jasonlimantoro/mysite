@@ -31,8 +31,9 @@
             <small>{{ comment.pub_date }}</small>
             <p>{{ comment.content }}</p>
             <div style="text-align: right">
-              <a href="{% url 'admin:comments.edit' blog.id comment.id %}">Edit</a> | <a href="#" class="to_delete">Delete</a>
-              <form action="{% url 'admin:comments.destroy' comment.id %}" id="form_delete" method="POST">
+              <a href="{% url 'admin:comments.edit' blog.id comment.id %}">Edit</a> |
+              <a href="#" data-entity-id="{{ comment.id }}" data-action="delete">Delete</a>
+              <form action="{% url 'admin:comments.destroy' comment.id %}" id="form-delete-{{ comment.id }}" method="POST">
                 {% csrf_token %}
               </form>
             </div>
