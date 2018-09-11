@@ -7,7 +7,6 @@ from ..forms import BlogForm
 
 def index(request):
     blogs = Blog.objects.all()
-    user = request.user
     return render(request, 'admin/blogs/index.html', {
         'blogs': blogs,
     })
@@ -15,7 +14,6 @@ def index(request):
 
 def show(request, blog_id):
     blog = Blog.objects.get(pk=blog_id)
-    user = request.user
     return render(request, 'admin/blogs/show.html', {
         'blog': blog,
     })
@@ -23,7 +21,6 @@ def show(request, blog_id):
 
 def edit(request, blog_id):
     blog = Blog.objects.get(pk=blog_id)
-    user = request.user
     form = BlogForm(initial={
         'title': blog.title,
         'description': blog.description,
