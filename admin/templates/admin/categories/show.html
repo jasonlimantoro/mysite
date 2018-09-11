@@ -1,8 +1,8 @@
 {% extends 'admin/master.html' %}
 
 {% block content %}
-  <h1>Blogs in {{ category.title }}</h1>
-  <table class="ui celled table">
+  <h1>Blogs <a href="{% url 'admin:categories.edit' category.id %}" class="ui tag label teal">{{ category.title }}</a></h1>
+  <table class="ui celled fixed table">
     <thead>
       <tr>
         <th>Title</th>
