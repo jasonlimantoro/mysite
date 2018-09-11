@@ -1,35 +1,7 @@
 {% extends 'admin/master.html' %}
 
-{% block navbar %}
-  <div class="sixteen wide column">
-    <div class="ui pointing menu">
-      <a class="active item"> Home </a>
-      <a class="item"> Messages </a>
-      <a class="item"> Friends </a>
-      <div class="right menu">
-        <div class="item">
-          Welcome, {{ user.get_username }}! |
-{#          <a href="{% url 'admin:logout' %}">Logout</a> |#}
-          <a href="{{ site_url }}">View site</a>
-        </div>
-      </div>
-    </div>
+{% block content %}
+  <div class="ui segment">
+    Welcome to our administration dashboard, <strong>{{ user.username }}</strong>!!
   </div>
 {% endblock %}
-
-{% block sidebar %}
-  <div class="four wide column">
-    <div class="ui vertical fluid tabular menu">
-      <h1>Categories</h1>
-      {% for category in categories %}
-        <a class="item" href="category/{{ category.id }}">{{ category.title }}</a>
-      {% endfor %}
-    </div>
-  </div>
-  <div class="twelve wide stretched column">
-    <div class="ui segment">
-      This is an stretched grid column. This segment will always match the tab height
-    </div>
-  </div>
-{% endblock %}
-

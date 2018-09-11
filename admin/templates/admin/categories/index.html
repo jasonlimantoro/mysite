@@ -1,0 +1,28 @@
+{% extends 'admin/master.html' %}
+
+{% block content %}
+  <h1>Categories</h1>
+  <table class="ui celled table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Published at</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for category in categories %}
+        <tr>
+          <td><a href="{% url 'admin:categories.show' category.id %}">{{ category.title }}</a></td>
+          <td>{{ category.description }}</td>
+          <td>{{ category.pub_date }}</td>
+          <td>
+            Edit <br>
+            Delete <br>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -9,9 +9,17 @@
 </head>
 <body>
 <div class="ui grid">
-  {% block navbar %} {% endblock %}
-  {% block sidebar %} {% endblock %}
-  {% block content %} {% endblock content %}
+  <div class="sixteen wide column">
+    {% include 'admin/layouts/navbar.html' %}
+  </div>
+
+  <div class="three wide column">
+    {% include 'admin/layouts/sidebar.html' %}
+  </div>
+
+  <div class="ten wide column">
+    {% block content %} {% endblock content %}
+  </div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
