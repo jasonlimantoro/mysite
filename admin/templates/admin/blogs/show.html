@@ -1,0 +1,45 @@
+{% extends 'admin/master.html' %}
+
+{% block content %}
+  <div class="ui segments">
+    <div class="ui segment">
+      <h1><a href="{% url 'admin:blogs.edit' blog.id %}">{{ blog.title }}</a></h1>
+      <p>{{ blog.description }}</p>
+    </div>
+  </div>
+  <div style="text-align: right">
+    <span>Comments ({{ blog.comments.count }})</span>
+    &nbsp &nbsp &nbsp
+    <span>Liked ({{ blog.likes.count }})</span>
+  </div>
+  <hr>
+  <h2>Input Comments</h2>
+  <form action="{% url 'admin:comments.store' blog.id %}" class="ui form" method="POST">
+    {% csrf_token %}
+    <div class="field">
+      {{ form.content }}
+    </div>
+    <button class="button ui primary" type="submit">Submit</button>
+  </form>
+  <div class="ui segments">
+    <div class="ui segment">
+      <p>Comments ({{ blog.comments.count }})</p>
+      <div class="ui segments">
+        {% for comment in blog.comments.all %}
+          <div class="ui segment">
+            <h1 style="display: inline;">{{ comment.user.username }}</h1>&nbsp&nbsp&nbsp
+            <small>{{ comment.pub_date }}</small>
+            <p>{{ comment.content }}</p>
+            <div style="text-align: right">
+              <a href="{% url 'admin:comments.edit' blog.id comment.id %}">Edit</a> | <a href="#" class="to_delete">Delete</a>
+              <form action="{% url 'admin:comments.destroy' comment.id %}" id="form_delete" method="POST">
+                {% csrf_token %}
+              </form>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+

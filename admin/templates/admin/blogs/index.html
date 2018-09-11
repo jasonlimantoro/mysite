@@ -1,8 +1,16 @@
 {% extends 'admin/master.html' %}
 
 {% block content %}
-  <h1>Blogs</h1>
-    <table class="ui celled table">
+  <div style="display: flex;justify-content: space-between">
+    <h1>Blogs</h1>
+    <button class="button ui primary small">
+      <a href="{% url 'admin:blogs.create' %}" style="color: white;">
+        <i class="plus square icon outline"></i>
+        Create New
+      </a>
+    </button>
+  </div>
+  <table class="ui celled table">
     <thead>
       <tr>
         <th>Title</th>
@@ -18,12 +26,19 @@
           <td>{{ blog.description }}</td>
           <td>{{ blog.pub_date }}</td>
           <td>
-            Edit <br>
-            Delete <br>
+            <a href="{% url 'admin:blogs.edit' blog.id %}">Edit</a><br>
+            <a href="{% url 'admin:blogs.show' blog.id %}">Show</a><br>
+            <form action="{% url 'admin:blogs.destroy' blog.id %}" method="POST" id="form_delete">
+              {% csrf_token %}
+              <a href="#" class="to_delete">Delete</a>
+            </form>
           </td>
         </tr>
       {% endfor %}
     </tbody>
   </table>
 
+{% endblock %}
+
+{% block script %}
 {% endblock %}

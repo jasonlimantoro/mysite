@@ -1,0 +1,22 @@
+{% extends 'admin/master.html' %}
+
+{% block content %}
+  <div class="ui segments">
+    <div class="ui segment">
+      <h1><a href="{% url 'admin:blogs.edit' blog.id %}">{{ blog.title }}</a></h1>
+      <p>{{ blog.description }}</p>
+    </div>
+  </div>
+
+  <h1>Edit Comment</h1>
+  <form action="{% url 'admin:comments.update' comment.id %}" class="ui form" method="POST">
+    {% csrf_token %}
+    <div class="field">
+      {{ form.content.errors }}
+      {{ form.content.label_tag }}
+      {{ form.content }}
+    </div>
+    <button class="button ui primary" type="submit">Submit</button>
+  </form>
+{% endblock %}
+

@@ -6,7 +6,7 @@
     {% csrf_token %}
     {% for field in form.visible_fields %}
       <div class="field">
-        <strong>{{ field.errors.as_text }}</strong>
+        <strong>{{ field.errors }}</strong>
         {{ field.label_tag }}
         {{ field }}
       </div>
