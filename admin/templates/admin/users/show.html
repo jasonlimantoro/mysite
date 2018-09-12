@@ -1,0 +1,32 @@
+{% extends 'admin/master.html' %}
+
+{% block content %}
+  <div class="ui segments">
+    <div class="ui segment">
+      <h1 style="display: inline">{{ user.username }}</h1>
+      {% if not user.is_active %}
+        <span class="ui red tag label">Banned</span>
+      {% endif %}
+    </div>
+  </div>
+  <hr>
+
+  <div class="ui segments">
+    <div class="ui segment">
+      <p>Comments ({{ user.comments.count }})</p>
+      <div class="ui segments">
+        {% for comment in user.comments.all %}
+          <div class="ui segment">
+            <h1 style="display: inline;">{{ comment.user.username }}</h1>&nbsp&nbsp&nbsp
+            <small>{{ comment.pub_date }}</small>
+            <p>{{ comment.content }}</p>
+            <div style="text-align: right">
+              Show | Hide
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+

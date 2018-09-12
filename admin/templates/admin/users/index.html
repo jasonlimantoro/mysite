@@ -1,0 +1,55 @@
+{% extends 'admin/master.html' %}
+
+{% block content %}
+  <div style="display: flex;justify-content: space-between">
+    <h1>Users</h1>
+    <button class="button ui primary small">
+      <a href="{% url 'admin:users.create' %}" style="color: white;">
+        <i class="plus square icon outline"></i>
+        Create New
+      </a>
+    </button>
+  </div>
+  <table class="ui celled table">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Comment count(s)</th>
+        <th>Registered at</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+        <tr {% if not user.is_active %}
+          class="error"
+        {% endif %}>
+          <td>
+            <a href="{% url 'admin:users.show' user.id %}">{{ user.username }}</a>
+            {% if user.id == request.user.id %}
+              (you)
+            {% endif %}
+          </td>
+          <td>{{ user.comments.count }}</td>
+          <td>{{ user.date_joined }}</td>
+          <td>
+            <form action="{% url 'admin:users.toggle_ban' user.id %}" method="POST">
+              {% csrf_token %}
+              {% if user.id == request.user.id %}
+                <span><i>no action</i></span>
+              {% else %}
+                <a href="{% url 'admin:users.toggle_ban' user.id %}" data-action="post">
+                  {% if user.is_active %}
+                    Ban
+                  {% else %}
+                    Unban
+                  {% endif %}
+                </a>
+              {% endif %}
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
