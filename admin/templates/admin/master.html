@@ -45,14 +45,17 @@
     ;
   })
 ;
-  $('a[data-action="delete"]').click(function (e) {
+  $('a[data-action]').click(function (e) {
     e.preventDefault();
-    let id = $(this).data('entityId');
-    let alert = confirm("Are you sure you want to delete this?");
-    if(alert){
-      $('#form-delete-' + id).submit();
+    {#let id = $(this).data('entityId');#}
+    let action = $(this).data('action');
+    if (action === 'delete'){
+      let confirmed = confirm("Are you sure you want to delete this?");
+      if(!confirmed){
+        return;
+      }
     }
-    return false;
+    $(this).parent().submit();
   });
 </script>
 </body>

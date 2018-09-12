@@ -9,9 +9,15 @@
   </div>
   <div style="text-align: right">
     {% if not is_liked %}
-      <a href="{% url 'admin:like.store' blog.id %}">Like</a>
+      <form action="{% url 'admin:like.store' blog.id %}" method="POST">
+        {% csrf_token %}
+        <a href="#" data-action="post">Like</a>
+      </form>
     {% else %}
-      <a href="{% url 'admin:like.destroy' blog.id %}">Unlike</a>
+      <form action="{% url 'admin:like.destroy' blog.id %}" method="POST">
+        {% csrf_token %}
+        <a href="#" data-action="post">Unlike</a>
+      </form>
     {% endif %}
     &nbsp&nbsp&nbsp
     Comments ({{ blog.comments.count }})
@@ -43,10 +49,9 @@
             <p>{{ comment.content }}</p>
             <div style="text-align: right">
               <a href="{% url 'admin:comments.edit' blog.id comment.id %}">Edit</a> |
-              <a href="#" data-entity-id="{{ comment.id }}" data-action="delete">Delete</a>
-              <form action="{% url 'admin:comments.destroy' comment.id %}" id="form-delete-{{ comment.id }}"
-                method="POST">
+              <form action="{% url 'admin:comments.destroy' comment.id %}" method="POST">
                 {% csrf_token %}
+                <a href="#" data-action="delete">Delete</a>
               </form>
             </div>
           </div>

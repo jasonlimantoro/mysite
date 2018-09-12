@@ -19,9 +19,9 @@
           <td>{{ blog.pub_date }}</td>
           <td>
             <a href="{% url 'admin:blogs.edit' blog.id %}">Edit</a><br>
-            <a href="#" data-action="delete" data-entity-id="{{ blog.id }}">Delete</a> <br>
-            <form action="{% url 'admin:blogs.destroy' blog.id %}" method="POST" id="form-delete-{{ blog.id }}">
+            <form action="{% url 'admin:blogs.destroy' blog.id %}" method="POST">
               {% csrf_token %}
+              <a href="#" data-action="delete">Delete</a> <br>
             </form>
           </td>
         </tr>
