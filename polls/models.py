@@ -57,11 +57,13 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
-    
+
     content = models.TextField(max_length=200)
+    is_hidden = models.BooleanField(default=0)
     user = models.ForeignKey(User, on_delete=models.CASCADE, editable=False, related_name='comments')
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='comments')
     pub_date = models.DateTimeField('date published', default=timezone.now)
+
 
 class Like(models.Model):
     class Meta:

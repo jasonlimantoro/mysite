@@ -23,11 +23,12 @@ urlpatterns = [
     path('blog/<int:blog_id>', blog_view.update, name='blogs.update'),
     path('blog/<int:blog_id>/show', blog_view.show, name='blogs.show'),
 
-    # blog
+    # comments
     path('blog/<int:blog_id>/comments', comment_view.store, name='comments.store'),
     path('blog/<int:blog_id>/comments/<int:comment_id>/edit', comment_view.edit, name='comments.edit'),
     path('comments/<int:comment_id>', comment_view.update, name='comments.update'),
     path('comments/<int:comment_id>/delete', comment_view.destroy, name='comments.destroy'),
+    path('comments/<int:comment_id>/toggle_visibility', comment_view.toggle_visibility, name='comments.toggle_visibility'),
 
     # like
     path('blog/<int:blog_id>/like/store', like_view.store, name='like.store'),

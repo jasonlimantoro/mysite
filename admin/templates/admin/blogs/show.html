@@ -1,6 +1,7 @@
 {% extends 'admin/master.html' %}
-
+{% load admin_extras %}
 {% block content %}
+  {% query_filter blog.comments is_hidden=False as visible_comments %}
   <div class="ui segments">
     <div class="ui segment">
       <h1><a href="{% url 'admin:blogs.edit' blog.id %}">{{ blog.title }}</a></h1>
@@ -20,10 +21,8 @@
       </form>
     {% endif %}
     &nbsp&nbsp&nbsp
-    Comments ({{ blog.comments.count }})
-
+    Comments ({{ visible_comments.count }})
     &nbsp &nbsp &nbsp
-
     Liked ({{ blog.likes.count }})
       {% if is_liked %}
         <small>, including you</small>
@@ -40,9 +39,9 @@
   </form>
   <div class="ui segments">
     <div class="ui segment">
-      <p>Comments ({{ blog.comments.count }})</p>
+      <p>Comments ({{ visible_comments.count }})</p>
       <div class="ui segments">
-        {% for comment in blog.comments.all %}
+        {% for comment in visible_comments %}
           <div class="ui segment">
             <h1 style="display: inline;">{{ comment.user.username }}</h1>&nbsp&nbsp&nbsp
             <small>{{ comment.pub_date }}</small>

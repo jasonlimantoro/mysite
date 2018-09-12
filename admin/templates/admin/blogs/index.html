@@ -1,5 +1,5 @@
 {% extends 'admin/master.html' %}
-
+{% load admin_extras %}
 {% block content %}
   <div style="display: flex;justify-content: space-between">
     <h1>Blogs</h1>
@@ -25,7 +25,8 @@
         <tr>
           <td><a href="{% url 'admin:blogs.edit' blog.id %}">{{ blog.title }}</a></td>
           <td>{{ blog.description }}</td>
-          <td>{{ blog.comments.count }}</td>
+          {% query_filter blog.comments is_hidden=False as visible_comments %}
+          <td>{{ visible_comments.count }}</td>
           <td>{{ blog.pub_date }}</td>
           <td>
             <a href="{% url 'admin:blogs.edit' blog.id %}">Edit</a><br>

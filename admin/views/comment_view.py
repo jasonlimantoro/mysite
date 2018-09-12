@@ -55,6 +55,16 @@ def update(request, comment_id):
     return HttpResponseRedirect(reverse('admin:blogs.show', args=(comment.blog_id, )))
 
 
+@login_required()
+def toggle_visibility(request, comment_id):
+    comment = Comment.objects.get(pk=comment_id)
+    comment.is_hidden = not comment.is_hidden
+    comment.save()
+    messages.success(request, "Comment visibility is successfully changed")
+
+    return HttpResponseRedirect(reverse('admin:users.show', args=(comment.user.id,)))
+
+
 @login_required
 @require_http_methods(['POST'])
 def destroy(request, comment_id):
