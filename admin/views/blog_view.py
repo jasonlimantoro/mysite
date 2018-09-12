@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, reverse
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.views.decorators.http import require_http_methods
 from django.contrib import messages
@@ -6,6 +7,7 @@ from polls.models import Blog
 from ..forms import BlogForm, CommentForm
 
 
+@login_required
 def index(request):
     blogs = Blog.objects.all()
     return render(request, 'admin/blogs/index.html', {
@@ -13,6 +15,7 @@ def index(request):
     })
 
 
+@login_required
 @require_http_methods(['POST'])
 def store(request):
     form = BlogForm(request.POST)
@@ -31,11 +34,13 @@ def store(request):
     return HttpResponseRedirect(reverse('admin:blogs.index'))
 
 
+@login_required
 def create(request):
     form = BlogForm()
     return render(request, 'admin/blogs/create.html', {'form': form})
 
 
+@login_required
 def show(request, blog_id):
     blog = Blog.objects.get(pk=blog_id)
     form = CommentForm()
@@ -45,6 +50,7 @@ def show(request, blog_id):
     })
 
 
+@login_required
 def edit(request, blog_id):
     blog = Blog.objects.get(pk=blog_id)
     form = BlogForm(initial={
@@ -58,6 +64,7 @@ def edit(request, blog_id):
     })
 
 
+@login_required
 @require_http_methods(['POST'])
 def update(request, blog_id):
     blog = Blog.objects.get(pk=blog_id)
@@ -76,6 +83,7 @@ def update(request, blog_id):
     return HttpResponseRedirect(reverse('admin:blogs.edit', args=(blog_id, )))
 
 
+@login_required
 @require_http_methods(['POST'])
 def destroy(request, blog_id):
     blog = Blog.objects.get(pk=blog_id)

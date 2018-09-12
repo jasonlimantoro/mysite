@@ -1,9 +1,11 @@
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from polls.models import Category, Question, Choice
 
 
+@login_required
 def index(request):
     categories = Category.objects.all()
     user = request.user

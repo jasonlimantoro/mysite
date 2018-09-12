@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect, reverse
 from django.views.decorators.http import require_http_methods
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from polls.models import Blog, Comment
 from ..forms import BlogForm, CommentForm
 
 
+@login_required
 def edit(request, blog_id, comment_id):
     blog = Blog.objects.get(pk=blog_id)
     comment = Comment.objects.get(pk=comment_id)
@@ -19,6 +21,7 @@ def edit(request, blog_id, comment_id):
     })
 
 
+@login_required
 @require_http_methods(['POST'])
 def store(request, blog_id):
     blog = Blog.objects.get(pk=blog_id)
@@ -36,6 +39,7 @@ def store(request, blog_id):
     return redirect('admin:blogs.show', blog_id)
 
 
+@login_required
 @require_http_methods(['POST'])
 def update(request, comment_id):
     comment = Comment.objects.get(pk=comment_id)
@@ -51,6 +55,7 @@ def update(request, comment_id):
     return HttpResponseRedirect(reverse('admin:blogs.show', args=(comment.blog_id, )))
 
 
+@login_required
 @require_http_methods(['POST'])
 def destroy(request, comment_id):
     comment = Comment.objects.get(pk=comment_id)
