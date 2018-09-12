@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import views, category_view, blog_view, comment_view
+from .views import views, category_view, blog_view, comment_view, like_view
 
 app_name = 'admin'
 urlpatterns = [
@@ -23,8 +23,13 @@ urlpatterns = [
     path('blog/<int:blog_id>', blog_view.update, name='blogs.update'),
     path('blog/<int:blog_id>/show', blog_view.show, name='blogs.show'),
 
+    # blog
     path('blog/<int:blog_id>/comments', comment_view.store, name='comments.store'),
     path('blog/<int:blog_id>/comments/<int:comment_id>/edit', comment_view.edit, name='comments.edit'),
     path('comments/<int:comment_id>', comment_view.update, name='comments.update'),
-    path('comments/<int:comment_id>/delete', comment_view.destroy, name='comments.destroy')
+    path('comments/<int:comment_id>/delete', comment_view.destroy, name='comments.destroy'),
+
+    # like
+    path('blog/<int:blog_id>/like/store', like_view.store, name='like.store'),
+    path('blog/<int:blog_id>/like/delete', like_view.destroy, name='like.destroy')
 ]

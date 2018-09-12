@@ -43,9 +43,11 @@ def create(request):
 @login_required
 def show(request, blog_id):
     blog = Blog.objects.get(pk=blog_id)
+    is_liked = blog.is_liked_by(request.user)
     form = CommentForm()
     return render(request, 'admin/blogs/show.html', {
         'blog': blog,
+        'is_liked': is_liked,
         'form': form,
     })
 

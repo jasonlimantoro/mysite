@@ -49,6 +49,10 @@ class Blog(models.Model):
     def categorized_to(self):
         return self.category.title
 
+    def is_liked_by(self, user):
+        return self.like_set.filter(user_id=user.id).exists()
+
+
 class Comment(models.Model):
 
     def __str__(self):

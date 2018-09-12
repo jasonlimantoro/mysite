@@ -8,9 +8,20 @@
     </div>
   </div>
   <div style="text-align: right">
-    <span>Comments ({{ blog.comments.count }})</span>
+    {% if not is_liked %}
+      <a href="{% url 'admin:like.store' blog.id %}">Like</a>
+    {% else %}
+      <a href="{% url 'admin:like.destroy' blog.id %}">Unlike</a>
+    {% endif %}
+    &nbsp&nbsp&nbsp
+    Comments ({{ blog.comments.count }})
+
     &nbsp &nbsp &nbsp
-    <span>Liked ({{ blog.likes.count }})</span>
+
+    Liked ({{ blog.likes.count }})
+      {% if is_liked %}
+        <small>, including you</small>
+      {% endif %}
   </div>
   <hr>
   <h2>Input Comments</h2>
@@ -33,7 +44,8 @@
             <div style="text-align: right">
               <a href="{% url 'admin:comments.edit' blog.id comment.id %}">Edit</a> |
               <a href="#" data-entity-id="{{ comment.id }}" data-action="delete">Delete</a>
-              <form action="{% url 'admin:comments.destroy' comment.id %}" id="form-delete-{{ comment.id }}" method="POST">
+              <form action="{% url 'admin:comments.destroy' comment.id %}" id="form-delete-{{ comment.id }}"
+                method="POST">
                 {% csrf_token %}
               </form>
             </div>
