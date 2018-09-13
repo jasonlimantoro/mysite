@@ -4,14 +4,7 @@
   <h1>Create a new user</h1>
   <form action="{% url 'admin:users.store' %}" class="ui form" method="POST">
     {% csrf_token %}
-    {% for field in form.visible_fields %}
-      <div class="field">
-        {{ field.errors }}
-        {{ field.label_tag }}
-        {{ field }}
-      </div>
-    {% endfor %}
-    <button class="button ui primary" type="submit">Submit</button>
+    {% include 'admin/layouts/form.html' %}
   </form>
 
 {% endblock %}

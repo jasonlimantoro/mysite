@@ -4,19 +4,6 @@
   <h1>Edit A blog</h1>
   <form class="ui form" action="{% url 'admin:blogs.update' blog.id %}" method="POST">
     {% csrf_token %}
-    {% for field in form.visible_fields %}
-      <div class="field">
-        <strong>{{ field.errors }}</strong>
-        {{ field.label_tag }}
-        {{ field }}
-      </div>
-    {% endfor %}
-    <button class="ui primary button" type="submit">Submit</button>
+    {% include 'admin/layouts/form.html' %}
   </form>
-{% endblock %}
-
-{% block script %}
-<script>
-  $('.ui.dropdown').dropdown();
-</script>
 {% endblock %}

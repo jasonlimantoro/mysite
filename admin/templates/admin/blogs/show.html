@@ -32,10 +32,7 @@
   <h2>Input Comments</h2>
   <form action="{% url 'admin:comments.store' blog.id %}" class="ui form" method="POST">
     {% csrf_token %}
-    <div class="field">
-      {{ form.content }}
-    </div>
-    <button class="button ui primary" type="submit">Submit</button>
+    {% include 'admin/layouts/form.html' %}
   </form>
   <div class="ui segments">
     <div class="ui segment">

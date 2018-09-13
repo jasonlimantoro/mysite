@@ -8,7 +8,8 @@ from django.shortcuts import reverse
 @require_http_methods(['POST'])
 def store(request, blog_id):
     blog = Blog.objects.get(pk=blog_id)
-    Like.objects.create(user=request.user, blog=blog)
+    request.user.like_set.create(blog=blog)
+    # Like.objects.create(user=request.user, blog=blog)
     messages.success(request, "Successfully liked this post!")
     return HttpResponseRedirect(reverse('admin:blogs.show', args=(blog_id,)))
 
