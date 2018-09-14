@@ -47,6 +47,18 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.js"></script>
+<script>
+  {#  prevent user from submitting a form via Enter key, only textarea is allowed #}
+  $(document).on("keypress", ":input:not(textarea)", function (event) {
+    return event.keyCode !== 13;
+  });
+  {# icon for submitting form #}
+  $('i[data-target]').click(function (e) {
+    e.preventDefault();
+    let target = $(this).data('target');
+    $("#" + target).submit();
+  })
+</script>
 {% block script %} {% endblock %}
 </body>
 </html>
