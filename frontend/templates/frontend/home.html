@@ -4,6 +4,13 @@
   Frontend
 {% endblock %}
 
+{% block breadcrumb %}
+  {{ block.super }}
+  {% if query  %}
+    <div class="section active">Searching for: {{ query }}</div>
+  {% endif %}
+{% endblock %}
+
 {% block content %}
   <h1>Blogs</h1>
   {% if blogs.count %}
@@ -13,6 +20,6 @@
       <hr>
     {% endfor %}
   {% else %}
-    <i>No blogs to show</i>
+    <i>No results</i>
   {% endif %}
 {% endblock %}

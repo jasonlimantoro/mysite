@@ -3,8 +3,16 @@
   {{ category_to_show.title }}
 {% endblock %}
 
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{{ request.path }}" class="section">{{ category_to_show.title }}</a>
+  <i class="right chevron icon divider"></i>
+  {% if query %}
+    <div class="section active">Searching for: {{ query }}</div>
+  {% endif %}
+{% endblock %}
 {% block content %}
-  <h1>Blogs</h1>
+  <h1>Blogs ({{ blogs.count }})</h1>
   {% if blogs.count %}
     {% for blog in blogs.all %}
       <h4>{{ blog.title }}</h4>
@@ -12,6 +20,6 @@
       <hr>
     {% endfor %}
   {% else %}
-    <p><i>No blogs to show</i></p>
+    <i>No results</i>
   {% endif %}
 {% endblock %}

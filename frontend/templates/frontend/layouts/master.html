@@ -11,20 +11,17 @@
 </head>
 <body>
 <div class="ui container">
-  <div class="ui grid">
+  <div class="ui grid" style="padding-top: 30px;">
     <div class="row">
-      <div class="sixteen wide column">
-        <div class="ui menu">
-          <a class="active item" href="{% url 'frontend.home' %}">My Coolest Blog </a>
+      <div class="twelve wide column">
+        <div class="ui huge breadcrumb">
+          {% block breadcrumb %}
+            <a class="section" href="{% url 'frontend.home' %}">My Coolest Blog</a>
+            <i class="right chevron icon divider"></i>
+          {% endblock %}
         </div>
       </div>
-
-    </div>
-    <div class="four column row">
-{#      <div class="left floated column">#}
-{#        <h1>My Cool Blog</h1>#}
-{#      </div>#}
-      <div class="right floated column">
+      <div class="four wide column">
         {% include 'frontend/layouts/search_form.html' %}
       </div>
     </div>
@@ -33,10 +30,6 @@
         {% include 'frontend/layouts/sidebar.html' %}
       </div>
       <div class="eight wide column">
-        {% if query %}
-          Best matches for:
-          <div class="ui label teal">{{ query }}</div>
-        {% endif %}
 
         {% block content %}
         {% endblock %}
