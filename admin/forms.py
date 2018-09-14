@@ -36,11 +36,11 @@ class UserForm(forms.ModelForm):
 
 
 class ProfileForm(forms.ModelForm):
-    clear_image = forms.BooleanField(required=False, label="Clear Image")
+    set_to_default = forms.BooleanField(required=False, label="Set to default")
 
     class Meta:
         model = Profile
-        fields = ['description', 'image', 'clear_image']
+        fields = ['description', 'image', 'set_to_default']
         widgets = {
             'image': FileInput(),
         }

@@ -5,10 +5,12 @@
   <div class="ui segments">
     <div class="ui segment">
         <div class="profile-header" style="text-align: center">
-          <img src="{{ user_to_show.profile.image.url }}" alt="profile" class="ui medium circular image" style="display: inline-block">
+          {% if user_to_show.profile.image %}
+            <img src="{{ user_to_show.profile.image.url }}" alt="profile" class="ui medium circular image" style="display: inline-block">
+          {% endif %}
           <h1>{{ user_to_show.username }}</h1>
         </div>
-      <form action="{% url 'admin:profiles.update' user_to_show.id %}" class="ui form" enctype="multipart/form-data" method="POST">
+      <form action="{% url 'admin:profiles.update' user_to_show.profile.id %}" class="ui form" enctype="multipart/form-data" method="POST">
         {% csrf_token %}
         <div class="field">
           {{ form.description.label_tag }}
@@ -22,8 +24,8 @@
 
         <div class="inline field">
           <div class="ui checkbox">
-            {{ form.clear_image.label_tag }}
-            {{ form.clear_image }}
+            {{ form.set_to_default.label_tag }}
+            {{ form.set_to_default }}
           </div>
         </div>
 

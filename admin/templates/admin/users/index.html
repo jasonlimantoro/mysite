@@ -25,7 +25,9 @@
           class="error"
         {% endif %}>
           <td style="text-align: center">
-            <img src="{{ user.profile.image.url }}" alt="profile-image" class="ui image small circular" style="display: inline-block">
+            {% if user.profile.image %}
+              <img src="{{ user.profile.image.url }}" alt="profile-image" class="ui image small circular" style="display: inline-block">
+            {% endif %}
             <a href="{% url 'admin:users.show' user.id %}" style="display: block">{{ user.username }}</a>
             {% if user.id == request.user.id %}
               (you)

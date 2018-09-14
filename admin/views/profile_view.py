@@ -15,12 +15,11 @@ def update(request, profile_id):
     profile = Profile.objects.get(pk=profile_id)
     form = ProfileForm(request.POST, files=request.FILES, instance=profile)
     if form.is_valid():
-        if form.cleaned_data['clear_image']:
-            profile.image.delete()
+        if form.cleaned_data['set_to_default']:
+            profile.set_image_to_default()
 
-        profile.image = form.cleaned_data['image']
-        profile.description = form.cleaned_data['description']
-        profile.save()
+        form.save()
+
         messages.success(request, "Profile is successfully updated!")
     else:
         messages.error(request, "Form is invalid")

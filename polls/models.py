@@ -1,3 +1,4 @@
+import os
 import datetime
 from django.contrib.auth.models import User
 from django.db import models
@@ -78,6 +79,17 @@ class Like(models.Model):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    default_image_url = 'default.png'
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     description = models.TextField(max_length=200, blank=True, null=True)
-    image = models.ImageField(upload_to='uploads', blank=True, null=True, default='default.png')
+    image = models.ImageField(upload_to='uploads', blank=True, null=True, default=default_image_url)
+
+    def has_default_image(self):
+        return self.image == self.default_image_url
+
+    def set_image_to_default(self):
+        if not self.has_default_image():
+            self.image.delete()
+            self.image = self.default_image_url
+            self.save()
+        return self
