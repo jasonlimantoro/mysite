@@ -1,23 +1,14 @@
-{% extends 'master.html' %}
+{% extends 'frontend/layouts/master.html' %}
 
 {% block title %}
   Frontend
 {% endblock %}
 
 {% block content %}
-  <div class="ui grid">
-    <div class="row">
-      <div class="four wide column text-center">
-        {% include 'frontend/layouts/sidebar.html' %}
-      </div>
-      <div class="eight wide column">
-        <h1>Blogs</h1>
-        {% for blog in blogs %}
-          <h4>{{ blog.title }}</h4>
-          <p>{{ blog.description }}</p>
-          <hr>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
+  <h1>Blogs</h1>
+  {% for blog in blogs %}
+    <h4>{{ blog.title }}</h4>
+    <p>{{ blog.description }}</p>
+    <hr>
+  {% endfor %}
 {% endblock %}

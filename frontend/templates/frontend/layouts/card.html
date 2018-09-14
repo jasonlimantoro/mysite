@@ -1,0 +1,25 @@
+<div class="ui card">
+  <div class="image">
+    <img src="{{ user.profile.image.url }}" class="medium circular image">
+  </div>
+  <div class="content">
+    <a class="header">{{ user.username }}</a>
+    <div class="meta">
+      <span class="date">Joined in {{ user.date_joined }}</span>
+    </div>
+    <div class="description">
+      {{ user.profile.description }}
+    </div>
+
+    <hr>
+    <div class="two ui buttons">
+      <button class="button ui">
+        <a href="{% url 'admin:index' %}" target="_blank">Backend</a>
+      </button>
+      <button class="button ui">
+        <a href="{% url 'logout' %}">Logout </a>
+      </button>
+    </div>
+  </div>
+
+</div>

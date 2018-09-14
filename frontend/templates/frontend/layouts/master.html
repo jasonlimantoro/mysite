@@ -8,12 +8,26 @@
   <title> {% block title %} {% endblock %} </title>
 </head>
 <body>
-
-<div class="ui centered grid" style="height: 100vh; align-items: center">
-  <div class="four column row">
-    <div class="column">
-      {% block content %}
-      {% endblock %}
+<div class="ui container">
+  <div class="ui grid">
+    <div class="row">
+      <h1>My Cool Blog</h1>
+    </div>
+    <div class="row">
+      <div class="four wide column">
+        {% include 'frontend/layouts/sidebar.html' %}
+      </div>
+      <div class="eight wide column">
+        {% block content %}
+        {% endblock %}
+      </div>
+      <div class="four wide column">
+        {% if user.is_authenticated %}
+          {% include 'frontend/layouts/card.html' %}
+        {% else %}
+          {% include 'frontend/layouts/login.html' %}
+        {% endif %}
+      </div>
     </div>
   </div>
 </div>

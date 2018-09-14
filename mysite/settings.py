@@ -66,7 +66,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'frontend.context_processors.categories'
+                'frontend.context_processors.categories',
+                'frontend.context_processors.login_form',
             ],
         },
     },
@@ -129,8 +130,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Authentication settings
-LOGIN_URL = '/auth/login'
-LOGIN_REDIRECT_URL = 'admin:index'
+LOGIN_URL = '/'
+LOGIN_REDIRECT_URL = 'frontend.home'
 LOGOUT_REDIRECT_URL = 'frontend.home'
 
 # Upload files

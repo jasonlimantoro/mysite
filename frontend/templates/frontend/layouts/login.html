@@ -1,0 +1,26 @@
+<div class="ui raised segment blue">
+  <h2>Login</h2>
+  <form method="post" action="{% url 'login' %}" class="ui form">
+    {% csrf_token %}
+    <div class="field">
+      {{ form.username.errors }}
+      {{ form.username.label_tag }}
+      {{ form.username }}
+    </div>
+
+    <div class="field">
+      {{ form.password.errors }}
+      {{ form.password.label_tag }}
+      {{ form.password }}
+    </div>
+    <div class="two ui buttons">
+      <button class="button ui primary" type="submit">Login</button>
+      <div class="or"></div>
+      <button class="button ui positive">
+        <a href="/" style="color: inherit;">
+          Register
+        </a>
+      </button>
+    </div>
+  </form>
+</div>

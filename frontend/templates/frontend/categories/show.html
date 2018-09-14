@@ -1,26 +1,17 @@
-{% extends 'master.html' %}
+{% extends 'frontend/layouts/master.html' %}
 {% block title %}
   {{ category_to_show.title }}
 {% endblock %}
 
 {% block content %}
-  <div class="ui grid">
-    <div class="row">
-      <div class="four wide column text-center">
-        {% include 'frontend/layouts/sidebar.html' %}
-      </div>
-      <div class="eight wide column">
-        <h1>Blogs</h1>
-        {% if category_to_show.blogs.count %}
-          {% for blog in category_to_show.blogs.all %}
-            <h4>{{ blog.title }}</h4>
-            <p>{{ blog.description }}</p>
-            <hr>
-          {% endfor %}
-        {% else %}
-          <p><i>No blog with this category</i></p>
-        {% endif %}
-      </div>
-    </div>
-  </div>
+  <h1>Blogs</h1>
+  {% if category_to_show.blogs.count %}
+    {% for blog in category_to_show.blogs.all %}
+      <h4>{{ blog.title }}</h4>
+      <p>{{ blog.description }}</p>
+      <hr>
+    {% endfor %}
+  {% else %}
+    <p><i>No blog with this category</i></p>
+  {% endif %}
 {% endblock %}
