@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,19 +6,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.css">
+  <link rel="stylesheet" href="{% static 'frontend/css/frontend.css' %}">
   <title> {% block title %} {% endblock %} </title>
 </head>
 <body>
 <div class="ui container">
   <div class="ui grid">
     <div class="row">
-      <h1>My Cool Blog</h1>
+      <div class="sixteen wide column">
+        <div class="ui menu">
+          <a class="active item" href="{% url 'frontend.home' %}">My Coolest Blog </a>
+        </div>
+      </div>
+
+    </div>
+    <div class="four column row">
+{#      <div class="left floated column">#}
+{#        <h1>My Cool Blog</h1>#}
+{#      </div>#}
+      <div class="right floated column">
+        {% include 'frontend/layouts/search_form.html' %}
+      </div>
     </div>
     <div class="row">
       <div class="four wide column">
         {% include 'frontend/layouts/sidebar.html' %}
       </div>
       <div class="eight wide column">
+        {% if query %}
+          Best matches for:
+          <div class="ui label teal">{{ query }}</div>
+        {% endif %}
+
         {% block content %}
         {% endblock %}
       </div>

@@ -5,13 +5,13 @@
 
 {% block content %}
   <h1>Blogs</h1>
-  {% if category_to_show.blogs.count %}
-    {% for blog in category_to_show.blogs.all %}
+  {% if blogs.count %}
+    {% for blog in blogs.all %}
       <h4>{{ blog.title }}</h4>
       <p>{{ blog.description }}</p>
       <hr>
     {% endfor %}
   {% else %}
-    <p><i>No blog with this category</i></p>
+    <p><i>No blogs to show</i></p>
   {% endif %}
 {% endblock %}

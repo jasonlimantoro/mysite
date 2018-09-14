@@ -1,0 +1,11 @@
+<form action="{{ request.path }}" method="GET">
+  <div class="ui input fluid">
+    <input type="text" placeholder="Search blog..." name="query">
+  </div>
+  <div class="ui two buttons">
+    <button class="ui button primary" type="submit">Search</button>
+    <button class="ui button positive">
+      <a href="{{ request.path }}">Clear</a>
+    </button>
+  </div>
+</form>
