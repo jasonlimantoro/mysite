@@ -3,8 +3,8 @@ from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from polls.models import User
-from ..forms import UserForm
+from polls.models import User, Profile
+from ..forms import UserForm, ProfileForm
 
 
 @login_required
@@ -18,11 +18,12 @@ def index(request):
 def store(request):
     form = UserForm(request.POST)
     if form.is_valid():
-        User.objects.create_user(
+        user = User.objects.create_user(
             username=form.cleaned_data['username'],
             email=form.cleaned_data['email'],
             password=form.cleaned_data['password']
         )
+        Profile.objects.create(user=user)
         messages.success(request, "User is successfully created")
 
     else:
@@ -40,8 +41,12 @@ def create(request):
 
 @login_required
 def show(request, user_id):
-    user = User.objects.get(pk=user_id)
-    return render(request, 'admin/users/show.html', {'user': user})
+    user_to_show = User.objects.get(pk=user_id)
+    form = ProfileForm(initial={
+        'description': user_to_show.profile.description,
+        'image': user_to_show.profile.image,
+    })
+    return render(request, 'admin/users/show.html', {'user_to_show': user_to_show, 'form': form})
 
 
 @login_required

@@ -1,10 +1,35 @@
 {% extends 'admin/master.html' %}
 
 {% block content %}
+  {% load static %}
   <div class="ui segments">
     <div class="ui segment">
-      <h1 style="display: inline">{{ user.username }}</h1>
-      {% if not user.is_active %}
+        <div class="profile-header" style="text-align: center">
+          <img src="{{ user_to_show.profile.image.url }}" alt="profile" class="ui medium circular image" style="display: inline-block">
+          <h1>{{ user_to_show.username }}</h1>
+        </div>
+      <form action="{% url 'admin:profiles.update' user_to_show.id %}" class="ui form" enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        <div class="field">
+          {{ form.description.label_tag }}
+          {{ form.description }}
+        </div>
+
+        <div class="inline field">
+          {{ form.image.label_tag }}
+          {{ form.image }}
+        </div>
+
+        <div class="inline field">
+          <div class="ui checkbox">
+            {{ form.clear_image.label_tag }}
+            {{ form.clear_image }}
+          </div>
+        </div>
+
+        <button class="button ui primary" type="submit">Submit</button>
+      </form>
+      {% if not user_to_show.is_active %}
         <span class="ui red tag label">Banned</span>
       {% endif %}
     </div>
@@ -13,9 +38,9 @@
 
   <div class="ui segments">
     <div class="ui segment">
-      <p>Comments ({{ user.comments.count }})</p>
+      <p>Comments ({{ user_to_show.comments.count }})</p>
       <div class="ui segments">
-        {% for comment in user.comments.all %}
+        {% for comment in user_to_show.comments.all %}
           <div class="ui segment raised">
             {% if comment.is_hidden %}
               <span class="ui red ribbon label">Hidden</span>

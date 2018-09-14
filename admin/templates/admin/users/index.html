@@ -24,8 +24,9 @@
         <tr {% if not user.is_active %}
           class="error"
         {% endif %}>
-          <td>
-            <a href="{% url 'admin:users.show' user.id %}">{{ user.username }}</a>
+          <td style="text-align: center">
+            <img src="{{ user.profile.image.url }}" alt="profile-image" class="ui image small circular" style="display: inline-block">
+            <a href="{% url 'admin:users.show' user.id %}" style="display: block">{{ user.username }}</a>
             {% if user.id == request.user.id %}
               (you)
             {% endif %}

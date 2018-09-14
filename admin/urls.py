@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import views, category_view, blog_view, comment_view, like_view, user_view
+from .views import views, category_view, blog_view, comment_view, like_view, user_view, profile_view
 
 app_name = 'admin'
 urlpatterns = [
@@ -41,4 +41,7 @@ urlpatterns = [
     path('users/create', user_view.create, name='users.create'),
     path('users/store', user_view.store, name='users.store'),
 
+    # profile
+    path('profile/<int:profile_id>', profile_view.update, name='profiles.update')
 ]
+

@@ -130,3 +130,7 @@ STATIC_URL = '/static/'
 LOGIN_URL = '/auth/login'
 LOGIN_REDIRECT_URL = 'admin:index'
 LOGOUT_REDIRECT_URL = 'home'
+
+# Upload files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'admin/media')

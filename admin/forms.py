@@ -1,6 +1,6 @@
 from django import forms
-from django.forms import Select, PasswordInput, EmailInput
-from polls.models import Blog, Comment, Category
+from django.forms import Select, PasswordInput, EmailInput, FileInput, CheckboxInput
+from polls.models import Blog, Comment, Category, Profile
 from django.contrib.auth.models import User
 
 
@@ -34,3 +34,13 @@ class UserForm(forms.ModelForm):
             'password': PasswordInput()
         }
 
+
+class ProfileForm(forms.ModelForm):
+    clear_image = forms.BooleanField(required=False, label="Clear Image")
+
+    class Meta:
+        model = Profile
+        fields = ['description', 'image', 'clear_image']
+        widgets = {
+            'image': FileInput(),
+        }

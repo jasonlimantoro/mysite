@@ -67,7 +67,7 @@ class Comment(models.Model):
 
 class Like(models.Model):
     class Meta:
-        unique_together=("user", "blog")
+        unique_together = ("user", "blog")
 
     def __str__(self):
         return "'%s' likes '%s'" % (self.user.username, self.blog.title)
@@ -75,3 +75,9 @@ class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, editable=False)
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
     liked_at = models.DateTimeField('liked at', default=timezone.now)
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    description = models.TextField(max_length=200, blank=True, null=True)
+    image = models.ImageField(upload_to='uploads', blank=True, null=True, default='default.png')
