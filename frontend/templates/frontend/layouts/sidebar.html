@@ -1,0 +1,10 @@
+<h1>Categories</h1>
+<div class="ui items">
+  {% for category in categories %}
+    <div class="item">
+      <div class="content">
+        <a href="{% url 'frontend.categories.show' category.id %}">{{ category.title }}</a>
+      </div>
+    </div>
+  {% endfor %}
+</div>

@@ -31,10 +31,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'semanticuiforms',
     'admin.apps.AdminConfig',
     'polls.apps.PollsConfig',
+    'frontend.apps.FrontendConfig',
     # 'django.contrib.admin',
+    'django_seed',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -65,6 +66,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'frontend.context_processors.categories'
             ],
         },
     },
@@ -129,7 +131,7 @@ STATIC_URL = '/static/'
 # Authentication settings
 LOGIN_URL = '/auth/login'
 LOGIN_REDIRECT_URL = 'admin:index'
-LOGOUT_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'frontend.home'
 
 # Upload files
 MEDIA_URL = '/media/'

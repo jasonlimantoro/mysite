@@ -1,9 +1,16 @@
 {% extends 'master.html' %}
 
+{% block title %} Login {% endblock %}
 {% block content %}
-  <h2>Please login first</h2>
-  <form method="post" action="{% url 'login' %}" class="ui form">
-    {% csrf_token %}
-    {% include 'admin/layouts/form.html' %}
-  </form>
+  <div class="ui centered grid" style="height: 100vh; align-items: center">
+    <div class="four column row">
+      <div class="column">
+        <h2>Please login first</h2>
+        <form method="post" action="{% url 'login' %}" class="ui form">
+          {% csrf_token %}
+          {% include 'admin/layouts/form.html' %}
+        </form>
+      </div>
+    </div>
+  </div>
 {% endblock %}

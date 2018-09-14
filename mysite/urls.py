@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    path('', views.home, name='home'),
+    path('', include('frontend.urls')),
     path('api/polls/', include('polls.api.urls')),
     path('polls/', include('polls.urls')),
     path('admin/', include('admin.urls')),

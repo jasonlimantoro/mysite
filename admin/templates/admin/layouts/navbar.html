@@ -1,12 +1,9 @@
-<div class="ui pointing menu">
+<div class="ui menu">
   <a class="active item" href="{% url 'admin:index' %}"> Dashboard </a>
-{#  <a class="item"> Messages </a>#}
-{#  <a class="item"> Friends </a>#}
   <div class="right menu">
     <div class="item">
       Welcome, {{ user.get_username }}! |
-      {#          <a href="{% url 'admin:logout' %}">Logout</a> |#}
-      <a href="{{ site_url }}">View site</a> |
+      <a href="{% url 'frontend.home' %}">View site</a> |
       <a href="{% url 'logout' %}">Logout</a>
     </div>
   </div>
