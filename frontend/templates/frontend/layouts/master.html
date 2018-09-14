@@ -16,7 +16,7 @@
       <div class="twelve wide column">
         <div class="ui huge breadcrumb">
           {% block breadcrumb %}
-            <a class="section" href="{% url 'frontend.home' %}">My Coolest Blog</a>
+            <a class="section" href="{% url 'frontend:home' %}">My Coolest Blog</a>
             <i class="right chevron icon divider"></i>
           {% endblock %}
         </div>
@@ -57,7 +57,7 @@
     e.preventDefault();
     let target = $(this).data('target');
     $("#" + target).submit();
-  })
+  });
 </script>
 {% block script %} {% endblock %}
 </body>

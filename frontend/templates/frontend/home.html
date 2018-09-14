@@ -6,8 +6,8 @@
 
 {% block breadcrumb %}
   {{ block.super }}
-  {% if query  %}
-    <div class="section active">Searching for: {{ query }}</div>
+  {% if request.GET.query  %}
+    <div class="section active">Searching for: {{ request.GET.query }}</div>
   {% endif %}
 {% endblock %}
 
@@ -17,6 +17,7 @@
     {% for blog in blogs %}
       <h4>{{ blog.title }}</h4>
       <p>{{ blog.description }}</p>
+      <a href="{% url 'frontend:blogs.show' blog.id %}">Read more</a>
       <hr>
     {% endfor %}
   {% else %}

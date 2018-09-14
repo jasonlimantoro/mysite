@@ -7,4 +7,4 @@ def categories(request):
 
 
 def login_form(request):
-    return {'form': UserForm()}
+    return {'login_form': UserForm()}

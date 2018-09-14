@@ -7,8 +7,8 @@
   {{ block.super }}
   <a href="{{ request.path }}" class="section">{{ category_to_show.title }}</a>
   <i class="right chevron icon divider"></i>
-  {% if query %}
-    <div class="section active">Searching for: {{ query }}</div>
+  {% if request.GET.query %}
+    <div class="section active">Searching for: {{ request.GET.query }}</div>
   {% endif %}
 {% endblock %}
 {% block content %}
@@ -17,6 +17,7 @@
     {% for blog in blogs.all %}
       <h4>{{ blog.title }}</h4>
       <p>{{ blog.description }}</p>
+      <a href="{% url 'frontend:blogs.show' blog.id %}">Read More</a>
       <hr>
     {% endfor %}
   {% else %}

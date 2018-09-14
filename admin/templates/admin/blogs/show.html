@@ -6,6 +6,7 @@
     <div class="ui segment">
       <h1><a href="{% url 'admin:blogs.edit' blog.id %}">{{ blog.title }}</a></h1>
       <p>{{ blog.description }}</p>
+      <small>{{ blog.pub_date }}</small>
     </div>
   </div>
   <div style="text-align: right">

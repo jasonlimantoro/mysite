@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from polls.models import Blog, Category, Profile
-from admin.forms import UserForm
+from admin.forms import UserForm, CommentForm
 
 
 def home(request):
@@ -14,7 +14,6 @@ def home(request):
 
     return render(request, 'frontend/home.html', {
         'blogs': blogs,
-        'query': query,
     })
 
 
@@ -28,7 +27,17 @@ def show_category(request, id):
     return render(request, 'frontend/categories/show.html', {
         'category_to_show': category_to_show,
         'blogs': blogs,
-        'query': query,
+    })
+
+
+def show_blog(request, id):
+    blog = Blog.objects.get(pk=id)
+    is_liked = blog.is_liked_by(request.user)
+    form = CommentForm()
+    return render(request, 'frontend/blogs/show.html', {
+        'blog': blog,
+        'is_liked': is_liked,
+        'form': form,
     })
 
 

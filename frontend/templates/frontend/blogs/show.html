@@ -1,0 +1,52 @@
+{% extends 'frontend/layouts/master.html' %}
+{% load admin_extras %}
+{% block title %}
+  Blog
+{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <a href="{% url 'frontend:categories.show' blog.category.id %}" class="section">{{ blog.category.title }}</a>
+  <i class="right chevron icon divider"></i>
+  <a href="{{ request.path }}" class="section">{{ blog.title }}</a>
+  <i class="right chevron icon divider"></i>
+  {% if request.GET.query %}
+    <div class="section active">Not Searching</div>
+  {% endif %}
+{% endblock %}
+{% block content %}
+  {% query_filter blog.comments is_hidden=False as visible_comments %}
+  <div class="ui segments">
+    <div class="ui segment">
+      <h1><a href="{% url 'admin:blogs.edit' blog.id %}">{{ blog.title }}</a></h1>
+      <p>{{ blog.description }}</p>
+      <small>{{ blog.pub_date }}</small>
+    </div>
+  </div>
+  <div style="text-align: right">
+    <button class="ui button primary">
+      <a href="{% url 'admin:blogs.show' blog.id %}" target="_blank">Add Comment</a>
+    </button>
+    Comments ({{ visible_comments.count }})
+    &nbsp &nbsp &nbsp
+    Liked ({{ blog.likes.count }})
+    {% if is_liked %}
+      <small>, including you</small>
+    {% endif %}
+  </div>
+  <hr>
+  <div class="ui segments">
+    <div class="ui segment">
+      <p>Comments ({{ visible_comments.count }})</p>
+      <div class="ui segments">
+        {% for comment in visible_comments %}
+          <div class="ui segment">
+            <h1 style="display: inline;">{{ comment.user.username }}</h1>&nbsp&nbsp&nbsp
+            <small>{{ comment.pub_date }}</small>
+            <p>{{ comment.content }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

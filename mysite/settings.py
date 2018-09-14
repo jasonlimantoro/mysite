@@ -130,9 +130,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Authentication settings
-LOGIN_URL = '/'
-LOGIN_REDIRECT_URL = 'frontend.home'
-LOGOUT_REDIRECT_URL = 'frontend.home'
+LOGIN_URL = '/auth/login'
+LOGIN_REDIRECT_URL = 'frontend:home'
+LOGOUT_REDIRECT_URL = 'frontend:home'
 
 # Upload files
 MEDIA_URL = '/media/'
