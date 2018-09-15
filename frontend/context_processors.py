@@ -1,5 +1,5 @@
 from polls.models import Category
-from admin.forms import UserForm
+from django.contrib.auth.forms import AuthenticationForm
 
 
 def categories(request):
@@ -7,4 +7,4 @@ def categories(request):
 
 
 def login_form(request):
-    return {'login_form': UserForm()}
+    return {'login_form': AuthenticationForm()}
