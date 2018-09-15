@@ -1,6 +1,6 @@
 <div class="ui raised segment blue">
   <h2>Login</h2>
-  <form method="post" action="{% url 'login' %}" class="ui form">
+  <form method="POST" action="{% url 'frontend:login' %}" class="ui form">
     {% csrf_token %}
     <div class="field">
       {{ login_form.username.errors }}
@@ -13,11 +13,14 @@
       {{ login_form.password.label_tag }}
       {{ login_form.password }}
     </div>
+    {% if request.GET.next %}
+       <input type="hidden" name="next" value="{{ request.GET.next }}">
+    {% endif %}
     <div class="two ui buttons">
       <button class="button ui primary" type="submit">Login</button>
       <div class="or"></div>
       <button class="button ui positive">
-        <a href="{% url 'frontend:register' %}" style="color: inherit">Register </a>
+        <a href="{% url 'frontend:register' %}" style="color: inherit">Register</a>
       </button>
     </div>
   </form>

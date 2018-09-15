@@ -3,7 +3,7 @@
 {% block content %}
   <div class="ui segment blue">
     <h1>Register</h1>
-    <form action="{% url 'signup' %}" method="POST" class="ui form">
+    <form action="{% url 'frontend:signup' %}" method="POST" class="ui form">
       {% csrf_token %}
       {% include 'admin/layouts/form.html' with submitButtonText="Register" %}
     </form>

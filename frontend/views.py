@@ -1,9 +1,9 @@
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from polls.models import Blog, Category, Profile
-from admin.forms import UserForm, CommentForm
+from admin.forms import CommentForm
 
 
 def home(request):
@@ -42,23 +42,32 @@ def show_blog(request, id):
 
 
 def register(request):
-    form = UserForm()
+    form = UserCreationForm()
     return render(request, 'frontend/pages/registration.html', {'form': form})
 
 
 def signup(request):
-    form = UserForm(request.POST)
+    form = UserCreationForm(request.POST)
     if form.is_valid():
-        user = User.objects.create_user(
-            username=form.cleaned_data['username'],
-            email=form.cleaned_data['email'],
-            password=form.cleaned_data['password']
-        )
+        user = form.save()
         Profile.objects.create(user=user)
         login(request, user)
         messages.success(request, "Welcome to the administration board!")
     else:
-        messages.error(request, "Form is invalid!")
         return render(request, 'frontend/pages/registration.html', {'form': form})
 
     return redirect('admin:index')
+
+
+def login_view(request):
+    form = AuthenticationForm(data=request.POST)
+    if form.is_valid():
+        user = form.get_user()
+        login(request, user)
+        messages.success(request, "You are logged in!")
+        if 'next' in request.POST:
+            redirect(request.POST.get('next'))
+        return redirect('admin:index')
+
+    return redirect('frontend:home')
+
