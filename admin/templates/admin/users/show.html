@@ -9,6 +9,9 @@
             <img src="{{ user_to_show.profile.image.url }}" alt="profile" class="ui medium circular image" style="display: inline-block">
           {% endif %}
           <h1>{{ user_to_show.username }}</h1>
+          {% if not user_to_show.is_active %}
+            <span class="ui red tag label">Banned</span>
+          {% endif %}
         </div>
       <form action="{% url 'admin:profiles.update' user_to_show.profile.id %}" class="ui form" enctype="multipart/form-data" method="POST">
         {% csrf_token %}
@@ -31,9 +34,6 @@
 
         <button class="button ui primary" type="submit">Submit</button>
       </form>
-      {% if not user_to_show.is_active %}
-        <span class="ui red tag label">Banned</span>
-      {% endif %}
     </div>
   </div>
   <hr>
@@ -50,9 +50,9 @@
               <span class="ui blue ribbon label">Visible</span>
             {% endif %}
             <br>
-            <h1 style="display: inline;">{{ comment.user.username }}</h1>&nbsp&nbsp&nbsp
-            <small>{{ comment.pub_date }}</small>
+            <h1 style="display: inline;">{{ comment.user.username }}</h1>
             <p>{{ comment.content }}</p>
+            <span>{{ comment.pub_date }} in blog: <a href="{% url 'admin:blogs.show' comment.blog.id %}">{{ comment.blog.title }}</a></span>
             <div style="text-align: right">
               <a href="{% url 'admin:comments.toggle_visibility' comment.id %}">
                 {% if comment.is_hidden %}

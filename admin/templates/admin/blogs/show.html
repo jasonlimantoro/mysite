@@ -40,10 +40,12 @@
       <p>Comments ({{ visible_comments.count }})</p>
       <div class="ui segments">
         {% for comment in visible_comments %}
-          <div class="ui segment">
-            <h1 style="display: inline;">{{ comment.user.username }}</h1>&nbsp&nbsp&nbsp
-            <small>{{ comment.pub_date }}</small>
+          <div class="ui segment blue">
+            <img src="{{ comment.user.profile.image.url }}" alt="profile-image" class="ui small circular image">
+            <h1 style="display: inline;">{{ comment.user.username }}</h1>
+            <small>says:</small>
             <p>{{ comment.content }}</p>
+            <small>{{ comment.pub_date }}</small>
             <div style="text-align: right">
               <a href="{% url 'admin:comments.edit' blog.id comment.id %}">Edit</a> |
               <form action="{% url 'admin:comments.destroy' comment.id %}" method="POST">
