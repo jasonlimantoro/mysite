@@ -1,6 +1,6 @@
 {% for field in form.visible_fields %}
-  <div class="field">
-    <strong>{{ field.errors }}</strong>
+  <div class="field {% if field.errors %}error{% endif %}">
+    <strong>{{ field.errors.as_text }}</strong>
     {{ field.label_tag }}
     {{ field }}
   </div>
