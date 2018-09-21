@@ -26,9 +26,6 @@ class Blog(models.Model):
     def __str__(self):
         return self.title
     
-    def categorized_to(self):
-        return self.category.title
-
     def is_liked_by(self, user):
         return self.like_set.filter(user_id=user.id).exists()
 
@@ -49,26 +46,23 @@ class Like(models.Model):
     class Meta:
         unique_together = ("user", "blog")
 
-    def __str__(self):
-        return "'%s' likes '%s'" % (self.user.username, self.blog.title)
-    
     user = models.ForeignKey(User, on_delete=models.CASCADE, editable=False)
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
     liked_at = models.DateTimeField('liked at', default=timezone.now)
 
 
 class Profile(models.Model):
-    default_image_url = 'default.png'
+    DEFAULT_IMAGE_URL = 'default.png'
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     description = models.TextField(max_length=200, blank=True, null=True)
-    image = models.ImageField(upload_to='uploads', blank=True, null=True, default=default_image_url)
+    image = models.ImageField(upload_to='uploads', blank=True, null=True, default=DEFAULT_IMAGE_URL)
 
     def has_default_image(self):
-        return self.image == self.default_image_url
+        return self.image == self.DEFAULT_IMAGE_URL
 
     def set_image_to_default(self):
         if not self.has_default_image():
             self.image.delete()
-            self.image = self.default_image_url
+            self.image = self.DEFAULT_IMAGE_URL
             self.save()
         return self
