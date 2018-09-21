@@ -1,2 +1,5 @@
 *pycache*
 uploads/
+venv
+db.sqlite3
+.idea

@@ -10,6 +10,10 @@ from ..forms import UserForm, ProfileForm
 @login_required
 def index(request):
     users = User.objects.all()
+    # pagination nih perlu. karena pagination dipake dimana2, mungkin bisa coba bikin decorator sendiri?
+    # @pagination gitu, ntar function view nya jadi
+    # def index(request, limit, page)
+    # trus bisa pake Paginatornya django https://docs.djangoproject.com/en/2.1/topics/pagination/
     return render(request, 'admin/users/index.html', {'users': users})
 
 
