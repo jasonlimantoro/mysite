@@ -15,6 +15,7 @@ def index(request):
     })
 
 
+# klo gk dipake dihapus aja nih
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     try:

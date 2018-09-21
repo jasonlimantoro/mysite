@@ -1,0 +1,5 @@
+ini harus ada di python project, gunanya adalah biar gw bisa tau lu perlu dependency apa aja dan version apa
+fungsinya sama kayak package.jsonnya javascript object
+cara generatenya:
+source <venv_folder>
+pip freeze > requirements.txt

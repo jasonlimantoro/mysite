@@ -10,6 +10,7 @@ def home(request):
     query = request.GET.get('query')
     blogs = Blog.objects.all()
     if query:
+        # ini bener, tapi cuma mau ksh tau aja kalo query begini itu normalnya gk disarankan, apalagi kalo tablenya gede. soalnya ini gbs di index dan bakal whole table search
         blogs = blogs.filter(title__icontains=query)
 
     return render(request, 'frontend/home.html', {
@@ -20,10 +21,14 @@ def home(request):
 def show_category(request, id):
     category_to_show = Category.objects.get(pk=id)
     query = request.GET.get('query')
+    # karena ini cuma get, bahkan bisa hemat query, gk perlu query categorynya, langsung
+    # blogs = Blog.objects.filter(category_id=id)
+    # .filter itu bisa di chain, tapi mungkin lebih rapi kalo pake **kwargs aja
     blogs = category_to_show.blogs.all()
     if query:
         blogs = blogs.filter(title__icontains=query)
 
+    # btw blogs disini gk di pagination ya? dicobain aja pagination
     return render(request, 'frontend/categories/show.html', {
         'category_to_show': category_to_show,
         'blogs': blogs,

@@ -26,6 +26,8 @@ def create(request):
 def store(request):
     form = CategoryForm(request.POST)
     if form.is_valid():
+        # cuma mau ksh tau kalo CategoryForm kan ModelForm, jd bisa sbnrnya form.save()
+        # tapi begini jg gk salah, lebih gk abstract
         Category.objects.create(
             title=form.cleaned_data['title'],
             description=form.cleaned_data['description']
@@ -40,6 +42,16 @@ def store(request):
 
 @login_required
 def show(request, category_id):
+    """
+    ini kalo category_id nya salah, bkl error.
+    bbrp cara:
+    1. pake filter, ini kalo mau silent error
+    category = Category.objects.filter(pk=category_id).first()
+    if category is None:
+        # return 404
+
+    2. pake get_or_404 nya django
+    """
     category = Category.objects.get(pk=category_id)
     return render(request, 'admin/categories/show.html', {
         'category': category,

@@ -1,6 +1,8 @@
 {% extends 'admin/master.html' %}
 {% load admin_extras %}
 {% block content %}
+  {#  kalo bisa jgn pake query_filter, filternya di view aja, biar dari liat viewnya bisa di gauge kira2 seberapa berat view ini.  #}
+  {#  template itu biasanya akhirnya bakal berantakan, jadikalo taro disini debugnya susah  #}
   {% query_filter blog.comments is_hidden=False as visible_comments %}
   <div class="ui segments">
     <div class="ui segment">
@@ -21,6 +23,7 @@
         <a href="#" data-action="post">Unlike</a>
       </form>
     {% endif %}
+    {# hayo yg rapi, pake margin haha #}
     &nbsp&nbsp&nbsp
     Comments ({{ visible_comments.count }})
     &nbsp &nbsp &nbsp
