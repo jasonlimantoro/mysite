@@ -2,7 +2,7 @@ from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from polls.models import Blog, Category, Profile
+from frontend.models import Category, Blog, Profile
 from admin.forms import CommentForm
 
 

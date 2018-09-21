@@ -1,4 +1,4 @@
-from polls.models import Profile
+from frontend.models import Profile
 import os
 from ..forms import ProfileForm
 from django.shortcuts import render, reverse

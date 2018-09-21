@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.views.decorators.http import require_http_methods
 from django.contrib import messages
-from polls.models import Blog
+from frontend.models import Blog
 from ..forms import BlogForm, CommentForm
 
 

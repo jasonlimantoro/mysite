@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import Select, PasswordInput, EmailInput, FileInput, CheckboxInput
-from polls.models import Blog, Comment, Category, Profile
+from frontend.models import Category, Blog, Comment, Profile
 from django.contrib.auth.models import User
 
 

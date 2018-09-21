@@ -51,7 +51,7 @@ class Migration(migrations.Migration):
                 ('content', models.TextField(max_length=200)),
                 ('is_hidden', models.BooleanField(default=0)),
                 ('pub_date', models.DateTimeField(default=django.utils.timezone.now, verbose_name='date published')),
-                ('blog', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='polls.Blog')),
+                ('blog', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='frontend.Blog')),
                 ('user', models.ForeignKey(editable=False, on_delete=django.db.models.deletion.CASCADE, related_name='comments', to=settings.AUTH_USER_MODEL)),
             ],
         ),
@@ -60,7 +60,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('liked_at', models.DateTimeField(default=django.utils.timezone.now, verbose_name='liked at')),
-                ('blog', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='polls.Blog')),
+                ('blog', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='frontend.Blog')),
                 ('user', models.ForeignKey(editable=False, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
@@ -89,12 +89,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='blog',
             name='category',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='blogs', to='polls.Category'),
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='blogs', to='frontend.Category'),
         ),
         migrations.AddField(
             model_name='blog',
             name='likes',
-            field=models.ManyToManyField(related_name='blog', through='polls.Like', to=settings.AUTH_USER_MODEL),
+            field=models.ManyToManyField(related_name='blog', through='frontend.Like', to=settings.AUTH_USER_MODEL),
         ),
         migrations.AddField(
             model_name='blog',

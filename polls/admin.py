@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
-from .models import Question, Choice, Blog, Category, Comment, Like
+from .models import Question, Choice
+from frontend.models import Category, Blog, Comment, Like
 
 # Unregister unecessary models
 admin.site.unregister(Group)

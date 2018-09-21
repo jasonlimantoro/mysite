@@ -1,4 +1,4 @@
-from polls.models import Category
+from frontend.models import Category
 from django.contrib.auth.forms import AuthenticationForm
 
 

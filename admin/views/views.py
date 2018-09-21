@@ -2,7 +2,8 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
-from polls.models import Category, Question, Choice
+from polls.models import Question, Choice
+from frontend.models import Category
 
 
 @login_required

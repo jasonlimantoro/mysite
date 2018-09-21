@@ -1,4 +1,4 @@
-from polls.models import Like, Blog
+from frontend.models import Blog, Like
 from django.http import HttpResponseRedirect
 from django.views.decorators.http import require_http_methods
 from django.contrib import messages
