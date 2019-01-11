@@ -1,7 +1,6 @@
 {% extends 'admin/master.html' %}
 {% load admin_extras %}
 {% block content %}
-  {% query_filter blog.comments is_hidden=False as visible_comments %}
   <div class="ui segments">
     <div class="ui segment">
       <h1><a href="{% url 'admin:blogs.edit' blog.id %}">{{ blog.title }}</a></h1>

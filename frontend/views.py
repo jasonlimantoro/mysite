@@ -32,11 +32,13 @@ def show_category(request, id):
 
 def show_blog(request, id):
     blog = Blog.objects.get(pk=id)
+    visible_comments = blog.comments.filter(is_hidden=False)
     is_liked = blog.is_liked_by(request.user)
     form = CommentForm()
     return render(request, 'frontend/blogs/show.html', {
         'blog': blog,
         'is_liked': is_liked,
+        'visible_comments': visible_comments,
         'form': form,
     })
 
