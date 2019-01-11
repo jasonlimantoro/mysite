@@ -17,6 +17,7 @@
     {% for blog in blogs %}
       <h4>{{ blog.title }}</h4>
       <p>{{ blog.description }}</p>
+      <p>Comments ({{ blog.visible_comments }})</p>
       <a href="{% url 'frontend:blogs.show' blog.id %}">Read more</a>
       <hr>
     {% endfor %}

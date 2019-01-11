@@ -1,4 +1,5 @@
 from django.contrib.auth import login
+from django.db.models import Count, Q
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
@@ -8,7 +9,7 @@ from admin.forms import CommentForm
 
 def home(request):
     query = request.GET.get('query')
-    blogs = Blog.objects.all()
+    blogs = Blog.objects.annotate(visible_comments=Count('comments', filter=Q(comments__is_hidden=False)))
     if query:
         blogs = blogs.filter(title__icontains=query)
 
