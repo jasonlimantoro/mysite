@@ -4,10 +4,12 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from frontend.models import Blog, Comment
-from ..forms import BlogForm, CommentForm
+from ..forms import CommentForm
+from ..decorators import comment_owner_required
 
 
 @login_required
+@comment_owner_required
 def edit(request, blog_id, comment_id):
     blog = Blog.objects.get(pk=blog_id)
     comment = Comment.objects.get(pk=comment_id)
@@ -31,7 +33,9 @@ def store(request, blog_id):
             content=form.cleaned_data['content'],
             user=request.user
         )
-        messages.success(request, 'Comment is successfully attached to this blog')
+        messages.success(
+            request,
+            'Comment is successfully attached to this blog')
 
     else:
         messages.error(request, "Form is not valid")
@@ -40,6 +44,7 @@ def store(request, blog_id):
 
 
 @login_required
+@comment_owner_required
 @require_http_methods(['POST'])
 def update(request, comment_id):
     comment = Comment.objects.get(pk=comment_id)
@@ -52,20 +57,32 @@ def update(request, comment_id):
     else:
         messages.error(request, 'Form is invalid')
 
-    return HttpResponseRedirect(reverse('admin:blogs.show', args=(comment.blog_id, )))
+    return HttpResponseRedirect(
+        reverse(
+            'admin:blogs.show',
+            args=(
+                comment.blog_id,
+            )))
 
 
 @login_required()
+@comment_owner_required
 def toggle_visibility(request, comment_id):
     comment = Comment.objects.get(pk=comment_id)
     comment.is_hidden = not comment.is_hidden
     comment.save()
     messages.success(request, "Comment visibility is successfully changed")
 
-    return HttpResponseRedirect(reverse('admin:users.show', args=(comment.user.id,)))
+    return HttpResponseRedirect(
+        reverse(
+            'admin:users.show',
+            args=(
+                comment.user.id,
+            )))
 
 
 @login_required
+@comment_owner_required
 @require_http_methods(['POST'])
 def destroy(request, comment_id):
     comment = Comment.objects.get(pk=comment_id)
@@ -74,4 +91,9 @@ def destroy(request, comment_id):
 
     messages.success(request, 'Comment is deleted successfully!')
 
-    return HttpResponseRedirect(reverse('admin:blogs.show', args=(comment.blog_id,)))
+    return HttpResponseRedirect(
+        reverse(
+            'admin:blogs.show',
+            args=(
+                comment.blog_id,
+            )))
