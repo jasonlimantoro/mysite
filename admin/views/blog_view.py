@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, reverse
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.views.decorators.http import require_http_methods
 from django.contrib import messages
 from frontend.models import Blog
 from ..forms import BlogForm, CommentForm
+from ..decorators import blog_owner_required
 
 
 @login_required
@@ -55,6 +56,7 @@ def show(request, blog_id):
 
 
 @login_required
+@blog_owner_required
 def edit(request, blog_id):
     blog = Blog.objects.get(pk=blog_id)
     form = BlogForm(initial={
@@ -69,6 +71,7 @@ def edit(request, blog_id):
 
 
 @login_required
+@blog_owner_required
 @require_http_methods(['POST'])
 def update(request, blog_id):
     blog = Blog.objects.get(pk=blog_id)
@@ -82,12 +85,14 @@ def update(request, blog_id):
 
     else:
         messages.error(request, "Form is not valid")
-        return render(request, 'admin/blogs/edit.html', {'blog': blog, 'form': form })
+        return render(request, 'admin/blogs/edit.html',
+                      {'blog': blog, 'form': form})
 
     return HttpResponseRedirect(reverse('admin:blogs.edit', args=(blog_id, )))
 
 
 @login_required
+@blog_owner_required
 @require_http_methods(['POST'])
 def destroy(request, blog_id):
     blog = Blog.objects.get(pk=blog_id)
