@@ -10,7 +10,7 @@ from ..forms import UserForm, ProfileForm
 
 @login_required
 def index(request):
-    users = User.objects.all()
+    users = User.objects.filter(is_superuser=False)
     return render(request, 'admin/users/index.html', {'users': users})
 
 
@@ -47,7 +47,8 @@ def show(request, user_id):
         'description': user_to_show.profile.description,
         'image': user_to_show.profile.image,
     })
-    return render(request, 'admin/users/show.html', {'user_to_show': user_to_show, 'form': form})
+    return render(request, 'admin/users/show.html',
+                  {'user_to_show': user_to_show, 'form': form})
 
 
 @login_required
