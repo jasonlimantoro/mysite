@@ -1,6 +1,4 @@
 from frontend.models import Profile
-import os
-from ..forms import ProfileForm
 from django.shortcuts import render, reverse
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
@@ -23,7 +21,12 @@ def update(request, profile_id):
         messages.success(request, "Profile is successfully updated!")
     else:
         messages.error(request, "Form is invalid")
-        return render(request, 'admin/users/show.html', {'form': form, 'user': profile.user})
+        return render(request, 'admin/users/show.html',
+                      {'form': form, 'user': profile.user})
 
-    return HttpResponseRedirect(reverse('admin:users.show', args=(profile.user.id, )))
-
+    return HttpResponseRedirect(
+        reverse(
+            'admin:users.show',
+            args=(
+                profile.user.id,
+            )))
