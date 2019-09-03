@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from frontend.models import Profile
 from ..forms import UserForm, ProfileForm
+from ..decorators import superadmin_required
 
 
 @login_required
@@ -15,6 +16,7 @@ def index(request):
 
 
 @login_required
+@superadmin_required
 @require_http_methods(['POST'])
 def store(request):
     form = UserForm(request.POST)
@@ -35,6 +37,7 @@ def store(request):
 
 
 @login_required
+@superadmin_required
 def create(request):
     form = UserForm()
     return render(request, 'admin/users/create.html', {'form': form})
@@ -52,6 +55,7 @@ def show(request, user_id):
 
 
 @login_required
+@superadmin_required
 @require_http_methods(['POST'])
 def toggle_ban(request, user_id):
 

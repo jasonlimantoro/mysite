@@ -5,9 +5,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from ..forms import ProfileForm
+from ..decorators import profile_owner_required
 
 
 @login_required
+@profile_owner_required
 @require_http_methods(['POST'])
 def update(request, profile_id):
     profile = Profile.objects.get(pk=profile_id)
